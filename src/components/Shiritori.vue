@@ -104,11 +104,11 @@ export default {
         })
           .then((resp) => {
             if (resp) {
-              this.showValidMessage();
+              this.refreshWordList();
+              this.startGame();
             } else {
               this.endGame();
             }
-            this.refreshWordList();
           });
       }, 2500);
     },
