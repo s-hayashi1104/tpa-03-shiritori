@@ -77,24 +77,24 @@ const playWord = function(req, res) {
 };
 
 const resetGame = function(req, res) {
-  const playerName = req.body;
-  if (!playerName) {
+  const playerNameObj = req.body;
+  if (!playerNameObj) {
     const reset = { success: false };
     return res.json(reset);
   }
-  if (Object.keys(playerName).length > 1) {
+  if (Object.keys(playerNameObj).length > 1) {
     const reset = { success: false };
     return res.json(reset);
   }
-  if (Object.keys(playerName)[0] !== 'playerName') {
+  if (Object.keys(playerNameObj)[0] !== 'playerName') {
     const reset = { success: false };
     return res.json(reset);
   }
-  if (typeof playerName !== 'string') {
+  if (typeof playerNameObj.playerName !== 'string') {
     const reset = { success: false };
     return res.json(reset);
   }
-  gameInstances.set(playerName, new Game());
+  gameInstances.set(playerNameObj, new Game());
   const reset = { success: true };
   res.json(reset);
   console.log('TODO: Reset a game identified by playerName');
