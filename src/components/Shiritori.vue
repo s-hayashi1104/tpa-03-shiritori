@@ -32,7 +32,7 @@
       >
         {{ message }}
       </h2>
-      <button v-if="lost" v-on:click="showValidMessage">
+      <button v-if="lost" v-on:click="reset">
         reset button
       </button>
     </div>
@@ -99,17 +99,6 @@ export default {
     resetMessageDelayed: function() {
       setTimeout(() => {
         this.message = '';
-        apiService.resetGame({
-          playerName: this.playerName,
-        })
-          .then((resp) => {
-            if (resp) {
-              this.refreshWordList();
-              this.startGame();
-            } else {
-              this.endGame();
-            }
-          });
       }, 2500);
     },
     showValidMessage: function() {
@@ -137,6 +126,20 @@ export default {
             this.errorMessage = 'Please enter a player name';
           } else {
             this.errorMessage = message;
+          }
+        });
+    },
+    reset: function() {
+      apiService.resetGame({ playerName: this.playerName })
+        .then((resp) => {
+          if (resp) {
+            this.message = '';
+            this.inputWord = '';
+            this.playedWords = [];
+            this.score = 0;
+            this.startGame();
+          } else {
+            this.endGame();
           }
         });
     },

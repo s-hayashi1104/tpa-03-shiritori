@@ -94,7 +94,7 @@ const resetGame = function(req, res) {
     const reset = { success: false };
     return res.json(reset);
   }
-  gameInstances.set(playerNameObj, new Game());
+  gameInstances.set(playerNameObj.playerName, new Game());
   const reset = { success: true };
   res.json(reset);
   console.log('TODO: Reset a game identified by playerName');
