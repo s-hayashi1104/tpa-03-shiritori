@@ -32,6 +32,9 @@
       >
         {{ message }}
       </h2>
+      <button v-if="lost" v-on:click="showValidMessage">
+        reset button
+      </button>
     </div>
     <div class="used-words">
       <h2 class="score">Score: {{ score }}</h2>
@@ -96,6 +99,17 @@ export default {
     resetMessageDelayed: function() {
       setTimeout(() => {
         this.message = '';
+        apiService.resetGame({
+          playerName: this.playerName,
+        })
+          .then((resp) => {
+            if (resp) {
+              this.showValidMessage();
+            } else {
+              this.endGame();
+            }
+            this.refreshWordList();
+          });
       }, 2500);
     },
     showValidMessage: function() {
