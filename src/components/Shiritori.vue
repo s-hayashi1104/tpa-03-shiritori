@@ -32,7 +32,7 @@
       >
         {{ message }}
       </h2>
-      <button v-if="lost" v-on:click="reset">
+      <button v-if="lost" @click="reset">
         reset button
       </button>
     </div>
@@ -131,7 +131,8 @@ export default {
     },
     reset: function() {
       apiService.resetGame({ playerName: this.playerName })
-        .then((resp) => {
+        .then(resp => {
+          
           if (resp) {
             this.message = '';
             this.inputWord = '';
@@ -141,6 +142,14 @@ export default {
           } else {
             this.endGame();
           }
+        })
+        .catch(error => {
+          this.message = '';
+          this.lost = false;
+          this.inputWord = '';
+          this.playedWords = [];
+          this.score = 0;
+          this.startGame();
         });
     },
   },

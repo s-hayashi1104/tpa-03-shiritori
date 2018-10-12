@@ -26,7 +26,8 @@ const apiService = {
         playerName,
       }),
     })
-      .then(resp => resp.json());
+      .then(resp => resp.json())
+      .catch(error => error.json());
   },
 };
 
