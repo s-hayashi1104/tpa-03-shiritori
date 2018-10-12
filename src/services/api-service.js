@@ -27,7 +27,10 @@ const apiService = {
       }),
     })
       .then(resp => resp.json())
-      .catch(error => error.json());
+      .catch((error) => {
+        console.log('Server error', error);
+        throw new Error('There has been a problem with your fetch operation');
+      });
   },
 };
 

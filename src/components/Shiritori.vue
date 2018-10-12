@@ -131,8 +131,7 @@ export default {
     },
     reset: function() {
       apiService.resetGame({ playerName: this.playerName })
-        .then(resp => {
-          
+        .then((resp) => {
           if (resp) {
             this.message = '';
             this.inputWord = '';
@@ -143,7 +142,8 @@ export default {
             this.endGame();
           }
         })
-        .catch(error => {
+        .catch((error) => {
+          console.error('error front', error.message);
           this.message = '';
           this.lost = false;
           this.inputWord = '';
