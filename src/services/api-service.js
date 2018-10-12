@@ -16,21 +16,24 @@ const apiService = {
     })
       .then(resp => resp.json());
   },
-  resetGame: function({ playerName }) {
-    return fetch('/api/reset-game', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        playerName,
-      }),
-    })
-      .then(resp => resp.json())
-      .catch((error) => {
-        console.log('Server error', error);
-        throw new Error('There has been a problem with your fetch operation');
+  resetGame: async function({ playerName }) {
+    try {
+      const url = '/api/reset-game';
+      const type = 'application/json';
+      const resp = await fetch(url, {
+        method: 'post',
+        headers: {
+          'Content-Type': type,
+        },
+        body: JSON.stringify({
+          playerName,
+        }),
       });
+      return resp.json();
+    } catch (error) {
+      console.log('Server error', error);
+      throw new Error('There has been a problem with your fetch operation');
+    }
   },
 };
 
