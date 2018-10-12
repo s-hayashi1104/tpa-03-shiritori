@@ -77,9 +77,26 @@ const playWord = function(req, res) {
 };
 
 const resetGame = function(req, res) {
-  //
-  // TODO
-  //
+  const playerNameObj = req.body;
+  if (!playerNameObj) {
+    const reset = { success: false };
+    return res.json(reset);
+  }
+  if (Object.keys(playerNameObj).length > 1) {
+    const reset = { success: false };
+    return res.json(reset);
+  }
+  if (Object.keys(playerNameObj)[0] !== 'playerName') {
+    const reset = { success: false };
+    return res.json(reset);
+  }
+  if (typeof playerNameObj.playerName !== 'string') {
+    const reset = { success: false };
+    return res.json(reset);
+  }
+  gameInstances.set(playerNameObj.playerName, new Game());
+  const reset = { success: true };
+  res.json(reset);
   console.log('TODO: Reset a game identified by playerName');
 };
 
