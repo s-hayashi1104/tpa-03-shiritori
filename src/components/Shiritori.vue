@@ -129,29 +129,26 @@ export default {
           }
         });
     },
-    reset: function() {
-      apiService.resetGame({ playerName: this.playerName })
-        .then((resp) => {
+    reset: async function(){
+        try{
+          let resp = await apiService.resetGame({ playerName: this.playerName })
           if (resp) {
-            this.message = '';
-            this.inputWord = '';
-            this.playedWords = [];
-            this.score = 0;
-            this.startGame();
+            this.resetInit();
           } else {
             this.endGame();
           }
-        })
-        .catch((error) => {
+        } catch(error) { 
           console.error('error front', error.message);
-          this.message = '';
-          this.lost = false;
-          this.inputWord = '';
-          this.playedWords = [];
-          this.score = 0;
-          this.startGame();
-        });
+          this.resetInit();
+        };
     },
+    resetInit: function(){
+      this.message = '';
+      this.inputWord = '';
+      this.playedWords = [];
+      this.score = 0;
+      this.startGame();
+    }
   },
   mounted: function() {
     this.refreshWordList();
